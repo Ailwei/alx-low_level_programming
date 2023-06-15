@@ -6,7 +6,7 @@
  */
 int main(void)
 {
-  printf("and that,");
+    printf("and that,");
     printf("is a piece of art,\n");
     return 0;
 }
