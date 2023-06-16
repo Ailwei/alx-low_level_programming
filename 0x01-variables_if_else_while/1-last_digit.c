@@ -2,8 +2,10 @@
 #include <time.h>
 #include <stdio.h>
 /**
- * main -This program will assign a random number to the variable n each time it is executed 
- * 
+ * main - prints the last digit of the random
+ * number stored in the varuable n
+ *
+ * Return:Always 0 (success)
  */
 int main(void)
 {
@@ -12,6 +14,7 @@ int main(void)
 	srand(time(0));
 	n = rand() - RAND_MAX / 2;
 	/* your code goes there */
+
 	if (n > 5)
 	{
 	printf("%d is greater than 5\n", n);
