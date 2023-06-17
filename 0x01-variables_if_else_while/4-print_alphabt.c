@@ -11,9 +11,9 @@ int main(void)
 	/*Print all the letters except q and e */
 	for (i = 'a'; i <= 'z'; i++)
 	{
-		if(i != 'q' && i != 'e')
+		if (i != 'q' && i != 'e')
 		{
-			putchar('a' + i);
+			putchar(i);
 		}
 	}
 		putchar('\n');
