@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 /**
- * main - prints the alphabet in lowercase, followed by a new line
+ * main - prints the alphabet in lowercase,
+ *followed by a new line
  *
- * Return 0 on success
+ * Return:Always 0 ( success)
  */
 
 
