@@ -3,7 +3,7 @@
  * main - Print all single numbers of 10 starting from 0,
  * followed by a new line
  *
- * return:Always 0 success
+ * Return:Always 0 success
  */
 int main(void)
 {
