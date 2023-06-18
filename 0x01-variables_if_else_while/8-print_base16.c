@@ -11,9 +11,17 @@ int main(void)
 
 	/*print all numbers of base 16 */
 
-	for (numbers = 0; numbers < 16; numbers++)
+	for (numbers = 0; numbers <= 16; numbers++)
 	{
-		putchar(numbers);
+		if (numbers < 10)
+		{
+			putchar(numbers + '0');
+		}
+		else 
+		{
+			putchar(numbers - 10 + 'a');
+		}
+		
 	}
 	/*prints all */
 
