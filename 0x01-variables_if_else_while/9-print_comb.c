@@ -12,7 +12,7 @@ int main(void)
 	for (single_digit_combo = 0; single_digit_combo <= 9; single_digit_combo++)
 	{
 		putchar(single_digit_combo + '0');
-		putchar(',');
+		putchar(' , ' + '\n');
 	}
 	putchar('\n');
 	return (0);
