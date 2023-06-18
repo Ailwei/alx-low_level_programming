@@ -17,11 +17,10 @@ int main(void)
 		{
 			putchar(numbers + '0');
 		}
-		else 
+		else
 		{
 			putchar(numbers - 10 + 'a');
 		}
-		
 	}
 	/*prints all */
 
