@@ -11,7 +11,7 @@ int main(void)
 
 	for (single_digit_combo = 0; single_digit_combo <= 9; single_digit_combo++)
 	{
-		putchar(',');
+		putchar(',' single_digit_combo);
 	}
 	putchar('\n');
 	return (0);
