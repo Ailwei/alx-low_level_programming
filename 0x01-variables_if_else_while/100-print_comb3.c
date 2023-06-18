@@ -11,8 +11,13 @@ int main(void)
 
 	for (two_digits_combo = 0; two_digits_combo <= 99; two_digits_combo++)
 	{
-		printf("%02d", two_digits_combo);
+		if (two_digits_combo < 10)
+		{
+			putchar('0');
+		}
 	}
+	 printf("%02d", two_digits_combo);
+
 
 		if (two_digits_combo != 99)
 		{
