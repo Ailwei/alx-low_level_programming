@@ -20,16 +20,13 @@ int main(void)
                 putchar(',');
                 putchar(' ');
             }
-
-            if (two_digits_combo < 10)
+	    if (two_digits_combo < 10)
                 putchar('0');
 
             printf("%d", two_digits_combo);
-
             count++;
         }
     }
-
     putchar('\n');
     return 0;
 }
