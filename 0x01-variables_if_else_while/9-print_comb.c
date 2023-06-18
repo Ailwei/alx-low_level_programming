@@ -12,9 +12,12 @@ int main(void)
 	for (single_digit_combo = 0; single_digit_combo <= 9; single_digit_combo++)
 	{
 		putchar(single_digit_combo + '0');
+
 		if (single_digit_combo != 9)
+		{
 		putchar(',');
 		putchar(' ');
+		}
 	}
 	putchar('\n');
 	return (0);
