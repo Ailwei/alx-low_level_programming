@@ -14,6 +14,7 @@ int main(void)
 		putchar(single_digit_combo + '0');
 		if (single_digit_combo != 9)
 		putchar(',');
+		putchar(' ');
 	}
 	putchar('\n');
 	return (0);
