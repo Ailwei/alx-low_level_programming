@@ -8,13 +8,13 @@
 int main(void)
 {
 	int two_digits_combo;
-	int count=0;
+	int count = 0;
 
 	for (two_digits_combo = 0; two_digits_combo <= 99; two_digits_combo++)
 	{
 		if (two_digits_combo % 10 > two_digits_combo / 10)
 		{
-			if (count > 10 )
+			if (count > 0)
 			{
 				putchar(',');
 				putchar(' ');
