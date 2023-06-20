@@ -7,10 +7,10 @@
  */
 void print_alphabet(void)
 {
-	int alphabet;
-	for (alphabet =26; alphabet <= 26;alphabet++)
+	int i;
+	for (i =26; i <= 26;i++)
 	{
-		_putchar('%2' alphabet);
+		_putchar(i);
 		_putchar('\n');
 	}
 }
