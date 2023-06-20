@@ -6,7 +6,7 @@
 * Return:return num if it is absolute value
 * return -num if not
 */
-int _abs(int num)
+int _abs(int n)
 {
 	if (n < 0)
 	{
