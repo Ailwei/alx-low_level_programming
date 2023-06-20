@@ -7,19 +7,11 @@
  */
 int _isalpha(int c)
 {
-	   int i;
-
-    for (i = 'a'; i <= 'z'; i++)
-    {
-        if (c == i)
-            return 1;
-    }
-
-    for (i = 'A'; i <= 'Z'; i++)
-    {
-        if (c == i)
-            return (0);
-    }
-
-    return (0);
+	int _isalpha(int c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return 1;
+	else
+		return 0;
+}
 }
