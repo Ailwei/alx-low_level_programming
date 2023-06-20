@@ -2,7 +2,6 @@
 /**
  * _abs - Computer the absolute value of an integer
  * @n:The input integer
- * @c: The number to be computed.
  * Return:Absolute value of number or zero
  */
 
