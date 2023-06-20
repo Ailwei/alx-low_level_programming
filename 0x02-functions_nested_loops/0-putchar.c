@@ -7,6 +7,11 @@
  */
 int main(void)
 {
-	printf("_putchar\n");
+	_putchar('a');
+	_putchar('i');
+	_putchar('l');
+        _putchar('w');
+	_putchar('e');
+        _putchar('i');
 	return (0);
 }
