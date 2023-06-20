@@ -7,19 +7,11 @@
  */
 int _isalpha(int c)
 {
-	   int is_alpha = 0;
+	int is_alpha = 0;
 
-    for (;c >= 'A' && c <= 'Z'; c++)
-    {
-	    is_alpha = 1;
-	    break;
-    }
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+		is_alpha = 1;
 
-    for (;c >= 'a' && c <= 'z'; c++)
-    {
-	    is_alpha = 1;
-	    break;
-    }
-
-    return (is_alpha);
+	return is_alpha;
 }
+	   
