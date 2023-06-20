@@ -12,6 +12,5 @@ int _isalpha(int c)
 	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
 		is_alpha = 1;
 
-	return is_alpha;
+	return (is_alpha);
 }
-	   
