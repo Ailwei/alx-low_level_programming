@@ -1,7 +1,7 @@
 #include "main.h"
 /**
  * _isalpha - function that checks for alphabetic character.
- *checks for alphabetic character
+ *@c:checks for alphabetic character
  *
  * Return:1 if it is alphabetic ,0 if not
  */
@@ -21,5 +21,5 @@ int _isalpha(int c)
         break;
     }
 
-    return is_alpha;
+    return (is_alpha);
 }
