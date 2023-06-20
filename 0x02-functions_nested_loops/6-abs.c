@@ -6,9 +6,9 @@
 * Return:return num if it is absolute value
 * return -num if not
 */
-int _abs(int)
+int _abs(int num)
 {
-	 int num;
+	 int -num;
 
 	 if (num < 0)
 	 {
