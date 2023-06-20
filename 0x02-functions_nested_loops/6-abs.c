@@ -2,7 +2,7 @@
 /**
  * _abs - Computes the absolute value of an integer.
  *
- * @param: num The input integer.
+ * @param n: num The input integer.
  * @return The absolute value of the input integer.
  */
 
