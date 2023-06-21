@@ -8,6 +8,7 @@ int main(void)
 {
 	int count = 0;
 	long previous = 1, current = 2, sum = current;
+
 	while (current + previous < 4000000)
 	{
 		current += previous;
