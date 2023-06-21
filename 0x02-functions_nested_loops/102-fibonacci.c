@@ -6,18 +6,20 @@
  */
 int main(void)
 {
-	int counter = 0;
-	long prevNum = 1, currNum = 2, sum = currNum;
+    int i;
+    long prevNum = 1, currNum = 2;
 
-	while (currNum + prevNum < 4000000)
-	{
-		currNum += prevNum;
-		if (currNum % 2 == 0)
-			sum += currNum;
-		prevNum = currNum - prevNum;
-		counter++;
-	}
+    printf("%ld, %ld", prevNum, currNum);
 
-	printf("%ld\n", sum);
-	return (0);
+    for (i = 2; i < 50; i++)
+    {
+        long nextNum = prevNum + currNum;
+        printf(", %ld", nextNum);
+        prevNum = currNum;
+        currNum = nextNum;
+    }
+
+    printf("\n");
+
+    return 0;
 }
