@@ -3,6 +3,8 @@
  */
 void times_table(void)
 {
+	int i;
+
 	for (int i = 0; i <= 10; i++) {
         int result = 9 * i;
 
