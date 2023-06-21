@@ -18,5 +18,5 @@ int main(void)
 		currNum = nextNum;
 	}
 	printf("\n");
-	return 0;
+	return (0);
 }
