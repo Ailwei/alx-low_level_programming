@@ -4,28 +4,20 @@
  * less than 5000000.
  * Return: Nothing!
  */
+int main(void)
+{
+	int counter = 0;    /* Counter variable */
+	long prevNum = 1, currNum = 2, sum = currNum;    /* Variables for Fibonacci sequence and sum */
 
-void fibonacci_sequence(int n) {
-    int sequence[5000000];
-    int i;
+	while (currNum + prevNum < 4000000)
+	{
+		currNum += prevNum;    /* Generate the next Fibonacci number */
+		if (currNum % 2 == 0)
+			sum += currNum;    /* Accumulate even Fibonacci numbers */
+		prevNum = currNum - prevNum;    /* Update the previous Fibonacci number */
+		counter++;    /* Increment the counter */
+	}
 
-    sequence[0] = 1;
-    sequence[1] = 2;
-    
-    printf("%d, %d", sequence[0], sequence[1]);
-    
-    
-    for (i = 2; i < n; i++) {
-        sequence[i] = sequence[i-1] + sequence[i-2];
-        printf(", %d", sequence[i]);
-    }
-    
-    printf("\n");
+	printf("%ld\n", sum);    /* Print the sum of even Fibonacci numbers */
+	return (0);
 }
-
-int main() {
-    fibonacci_sequence(5000000);
-    
-    return 0;
-}
-
