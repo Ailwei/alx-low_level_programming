@@ -1,10 +1,10 @@
 #include "main.h"
 /**
  */
-int add(int, int)
+int add(int num1, int num2)
 {
-	int num1 = 10;
-	int num2 = 34;
+	 num1 = 10;
+	 num2 = 34;
 	int result;
 	result = (num1 + num2);
 	return (result);
