@@ -6,5 +6,9 @@ void print_to_98(int n)
 {
 	for (n = 0; n <= 98; n++)
 		printf("%d", n);
+	if (i != 98)
+	{
+		printf(", ");
+        }
 		
 }
