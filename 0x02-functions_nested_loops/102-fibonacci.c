@@ -1,7 +1,12 @@
 #include <stdio.h>
+/**
+ * main - prints the sum of even fibonacci numbers
+ * less than 5000000.
+ * Return: Nothing!
+ */
 
 void fibonacci_sequence(int n) {
-    int sequence[50];
+    int sequenc5[5000000];
     int i;
 
     sequence[0] = 1;
@@ -19,7 +24,7 @@ void fibonacci_sequence(int n) {
 }
 
 int main() {
-    fibonacci_sequence(50);
+    fibonacci_sequence(5000000);
     
     return 0;
 }
