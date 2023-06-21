@@ -1,11 +1,11 @@
 #include "main.h"
+#include <iostream>
 /**
  */
-int print_last_digit(int result)
+int print_last_digit(int number)
 {
-	int num1;
-	int num2;
+	int last_digit = number % 10;  // Use modulo operator to get the remainder (last digit)
+    std::cout << "Last digit: " << last_digit << std::endl;
+    return last_digit;
 
-	result = (num1 % num2);
-			return (result);
 }
