@@ -6,7 +6,7 @@
  */
 
 void fibonacci_sequence(int n) {
-    int sequenc5[5000000];
+    int sequence[5000000];
     int i;
 
     sequence[0] = 1;
