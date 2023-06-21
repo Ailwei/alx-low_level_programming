@@ -2,15 +2,42 @@
 #include <stdio.h>
 /**
  */
+
+/**
+ * print_times_table - prints the times table of the input,
+ * starting with 0.
+ * @n: The value of the times table to be printed.
+ */
+
 void print_times_table(int n)
 {
-	int i;
-	if (n > 15 || n < 0)
+	int num, m, p;
+
+	if (n >= 0 && n <= 15)
 	{
-		return;
+	for (num = 0; num <= n; num++)
+	{
+	_putchar('0');
+	for (m = 1; m <= n; m++)
+	_putchar(',');
+	_putchar(' ');
+	p = num * m;
+	if (p <= 99)
+	_putchar(' ');
+	if (p <= 9)
+	_putchar(' ');
+	if (p >= 100)
+	{
+	_putchar((p / 100) + '0');
+	_putchar(((p / 10)) % 10 + '0');
 	}
-	for (i = 0; i <= 10; i++)
+	else if (p <= 99 && p >= 10)
 	{
-		 printf("%d x %d = %d\n", i, n, i * n);
+	_putchar((p / 10) + '0');
+	}
+	_putchar((p % 10) + '0');
+	}
+	_putchar('\n');
+	}
 	}
 }
