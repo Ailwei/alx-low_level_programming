@@ -12,7 +12,6 @@ void print_triangle(int size)
 	if (size <= 0)
 	{
 		_putchar('\n');
-		return;
 	}
 	int row, col;
 	for (row = 1; row <= size; row++)
