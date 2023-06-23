@@ -11,7 +11,7 @@ int main(void)
 {
 	int y;
 
-	for (y = 0; y <= 100; y++)
+	for (y = 1; y <= 100; y++)
 	{
 		if ((y % 3 == 0) && (y % 5 == 0))
 		{
