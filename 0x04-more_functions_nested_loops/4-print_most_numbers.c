@@ -12,7 +12,7 @@ void print_most_numbers(void)
 	for (numbers = 0; numbers <= 9; numbers++)
 	{
 		if (!(numbers == 2 || numbers == 4))
-			_putchar(c);
+			_putchar(numbers);
 	}
 	_putchar('\n');
 }
