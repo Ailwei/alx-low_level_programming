@@ -3,6 +3,9 @@
 #include <limits.h>
 /**
  * _atoi - function that convert a string to an integer
+ *
+ * @param s The string to convert.
+ * @return The converted integer value
  */
 
 int _atoi(char *s)
