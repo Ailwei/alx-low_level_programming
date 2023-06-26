@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include "main.h"
 /**
- * print_array - Prints n elements of an array of integers, separated by commas 
- * @a: param a     Pointer to the array of integers.
- * @n: param n     Number of elements to be printed.
+ * print_array - function that prints n elements of an array of integers
+ * @n:  is the number of elements of the array to be printed
+ * @a: integer
  */
 void print_array(int *a, int n)
 {
