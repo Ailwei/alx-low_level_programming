@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include "main.h"
 #include <limits.h>
+/**
+ * _atoi - function that convert a string to an integer
+ */
 
 int _atoi(char *s)
 {
