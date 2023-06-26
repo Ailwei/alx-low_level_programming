@@ -9,12 +9,15 @@
 void puts2(char *str)
 {
 	int i;
+	int count = 0;
 
 	int length = strlen(str);
 
 	for (i = 0; i < length; i += 2)
 	{
-		putchar( str[i]);
+		putchar(str[i]);
+		count++;
 	}
+	printf("\n(%d chars long)\n", count);
 }
 
