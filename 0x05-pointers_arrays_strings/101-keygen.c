@@ -15,3 +15,8 @@ void generatePassword()
 	password[6] = '\0';
 	printf("Random Password: %s\n", password);
 }
+int main()
+{
+	generatePassword();
+	return (0);
+}
