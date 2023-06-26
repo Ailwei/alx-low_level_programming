@@ -5,6 +5,7 @@
  * @(\0): including the terminating null byte (\0),
  * @dest : Return value: the pointer to dest
  * @src:copies the string pointed to by src
+ * Return: the pointer to dest
  */
 char *_strcpy(char *dest, char *src)
 {
