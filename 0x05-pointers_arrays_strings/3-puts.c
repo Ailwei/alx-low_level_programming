@@ -1,5 +1,5 @@
 #include "main.h"
-#include <stdout.h>
+
 /**
  * _puts - function that prints a string, followed by a new line, to stdout.
  * @str: o stdout.
