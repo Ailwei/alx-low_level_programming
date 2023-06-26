@@ -8,8 +8,10 @@
  */
 void puts2(char *str)
 {
+	int i;
+
 	int length = strlen(str);
-	for (int i = 0; i < length; i += 2)
+	for (i = 0; i < length; i += 2)
 	{
 		printf("%c\n", str[i]);
     }
