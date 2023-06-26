@@ -8,16 +8,12 @@
  */
 void puts2(char *str)
 {
-	int i;
-	int count = 0;
-
-	int length = strlen(str);
-
-	for (i = 0; i < length; i += 2)
+	int i = 0;
+	while (str[i] != '\0')
 	{
 		putchar(str[i]);
-		count++;
+		i += 2;
 	}
-	printf("\n(%d chars long)\n", count);
+	putchar('\n');
 }
 
