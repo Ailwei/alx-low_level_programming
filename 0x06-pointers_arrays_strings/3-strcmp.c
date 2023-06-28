@@ -14,7 +14,7 @@ int _strcmp(const char *s1, const char *s2)
 {
 	int i = 0;
 
-	/* Iterate through the strings until a difference is found or the end is reached */
+	/* Iterate the strings until a difference is found or the end is reached */
 	while (s1[i] == s2[i])
 	{
 		/* If the end of both strings is reached, they are equal */
@@ -22,6 +22,6 @@ int _strcmp(const char *s1, const char *s2)
 			return (0);
 		i++;
 	}
-	/* Return the difference between the differing characters in s1 and s2 */
+	/* Return the difference between the  characters in s1 and s2 */
 	return (s1[i] - s2[i]);
 }
