@@ -7,7 +7,7 @@ int _strcmp(char *s1, char *s2);
 void reverse_array(int *a, int n);
 void _putchar(char *s);
 char *_strncpy(char *dest, const char *src, int n);
-int _strcmp(char *s1, char *s2);
+int _strcmp(const char *s1,const char *s2);
 
 
 #endif
