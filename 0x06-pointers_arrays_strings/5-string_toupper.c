@@ -8,16 +8,16 @@
  */
 char *string_toupper(char *str)
 {
-    int i = 0;
+	int i = 0;
 
-    while (str[i] != '\0')
-    {
-        if (str[i] >= 'a' && str[i] <= 'z')
-        {
-            str[i] = str[i] - 32;  /* Convert lowercase letter to uppercase */
-        }
-        i++;
-    }
-
-    return str;
+	while (str[i] != '\0')
+	{
+		if (str[i] >= 'a' && str[i] <= 'z')
+		{
+			/* Convert lowercase letter to uppercase */
+			str[i] = str[i] - 32;
+		}
+		i++;
+	}
+	return (str);
 }
