@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
-
+#include "main.h"
 /**
  * rot13 - Encodes a string using the ROT13 cipher.
  * @str: The input string to be encoded.
