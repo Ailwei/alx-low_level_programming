@@ -10,10 +10,11 @@
  */
 char *cap_string(char *str)
 {
+	int i;
 	int length = strlen(str);
 	int capitalize = 1;
 
-	for (int i = 0; i < length; i++)
+	for (i = 0; i < length; i++)
 	{
 		/* Check if current character is a separator */
 		if (isspace(str[i]) || str[i] == ',' || str[i] == ';' || str[i] == '.' ||
