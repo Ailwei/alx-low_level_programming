@@ -30,11 +30,3 @@ char *leet(char *str)
 	}
 	return (str);
 }
-int main()
-{
-    char str[] = "leet encoding";
-    char *encoded = leet(str);
-    printf("%s\n", encoded);
-
-    return (0);
-}
