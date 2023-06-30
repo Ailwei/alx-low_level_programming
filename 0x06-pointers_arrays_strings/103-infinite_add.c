@@ -17,30 +17,7 @@
  */
 #include <stdio.h>
 #include <string.h>
-
-char *infinite_add(char *n1, char *n2, char *r, int size_r)
-
-int main(void)
-{
-	char n1[] = "123456789";
-	char n2[] = "987654321";
-	int size_r = 20;
-	char r[size_r];
-	char *res;
-
-	res = infinite_add(n1, n2, r, size_r);
-
-	if (res != NULL)
-	{
-		printf("Result: %s\n", res);
-	}
-	else
-	{
-		printf("The result cannot be stored in the buffer.\n");
-	}
-
-	return 0;
-}
+#include "main.h"
 
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
