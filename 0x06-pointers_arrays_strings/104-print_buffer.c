@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
+#include "main.h"
 
 /**
  * print_buffer - Prints the content of a buffer.
