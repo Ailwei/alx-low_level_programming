@@ -24,12 +24,10 @@ void print_buffer(char *b, int size)
 		printf("\n");
 		return;
 	}
-
 	for (i = 0; i < size; i += 10)
 	{
 		/* Print the position of the first byte in the line */
 		printf("%08x  ", i);
-
 		/* Print the hexadecimal content of the buffer */
 		for (j = i; j < i + 10; j += 2)
 		{
@@ -50,7 +48,6 @@ void print_buffer(char *b, int size)
 				printf("     ");
 			}
 		}
-
 		/* Print the content of the buffer */
 		for (j = i; j < i + 10 && j < size; j++)
 		{
@@ -63,8 +60,6 @@ void print_buffer(char *b, int size)
 				printf(".");
 			}
 		}
-
 		printf("\n");
 	}
 }
-
