@@ -7,7 +7,7 @@
  * @size: Size of the square matrix.
  *
  * Description: This function calculates and prints the sum of the two diagonal
- * of a square matrix of integers.The matrix is represented by a one-dimensional
+ * of a square matrix of integer.The matrix is represented by a one-dimensional
  * array of size size * size, where each row is contiguous in memory.
  * The sum of the main diagonal is printed first, followed by the sum of the
  * secondary diagonal, each separated by a comma and a space.
