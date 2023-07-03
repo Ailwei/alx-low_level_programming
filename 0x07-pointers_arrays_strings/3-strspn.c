@@ -17,7 +17,7 @@ unsigned int _strspn(char *s, char *accept)
 
 	while (*s)
 	{
-		found =0;
+		found = 0;
 
 		 /* Iterate through the accept string to check if the character is present */
 
