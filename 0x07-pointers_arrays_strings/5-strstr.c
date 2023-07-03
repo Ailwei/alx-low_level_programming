@@ -17,6 +17,13 @@ char *_strstr(char *haystack, char *needle)
 	while (*haystack)
 	{
 		char *n = needle;
+		char *h = haystack;
+
+		while (*n && *h == *n)
+		{
+			h++;
+			n++;
+		}
 
 		/* Compare characters of haystack and needle */
 		if (*n == '\0')
