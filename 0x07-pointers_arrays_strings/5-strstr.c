@@ -16,7 +16,6 @@ char *_strstr(char *haystack, char *needle)
 
 	while (*haystack)
 	{
-		char *h = haystack;
 		char *n = needle;
 
 		/* Compare characters of haystack and needle */
