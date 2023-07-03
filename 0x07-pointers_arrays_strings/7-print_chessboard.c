@@ -11,14 +11,13 @@
  */
 void print_chessboard(char (*a)[8])
 {
-    int i, j;
-
-    for (i = 0; i < 8; i++)
-    {
-        for (j = 0; j < 8; j++)
-        {
-            putchar(a[i][j]);  /* Print the character at position (i, j) */
-        }
-        putchar('\n');  /* Move to the next line after printing each row */
-    }
+	int i, j;
+	for (i = 0; i < 8; i++)
+	{
+		for (j = 0; j < 8; j++)
+		{
+			putchar(a[i][j]);/* Print the character at position (i, j) */
+		}
+		putchar('\n');  /* Move to the next line after printing each row */
+	}
 }
