@@ -14,6 +14,6 @@ char *_memset(char *s, char b, unsigned int n)
 	/* Fill each byte in the memory area with the constant byte */
 	for (i = 0; i < n; i++)
 		s[i] = b;
-	return s;
+	return (s);
 }
 
