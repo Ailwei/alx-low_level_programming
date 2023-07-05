@@ -1,24 +1,33 @@
 #include "main.h"
+#include <math.h>
 
-int _sqrt_recursive_helper(int n, int start, int end);
-
-int _sqrt_recursion(int n)
+/**
+ * is_prime_number - Checks if a number is prime.
+ * @n: The number to be checked.
+ *
+ * Return: 1 if @n is prime, 0 otherwise.
+ */
+int is_prime_number(int n)
 {
-	return _sqrt_recursive_helper(n, 0, n);
+    int sqrtN;
+    int i;
+
+    if (n <= 1)
+        return (0);
+
+    if (n == 2)
+        return (1);
+
+    if (n % 2 == 0)
+        return (0);
+
+    sqrtN = sqrt(n);
+    for (i = 3; i <= sqrtN; i += 2)
+    {
+        if (n % i == 0)
+            return (0);
+    }
+
+    return (1);
 }
 
-int _sqrt_recursive_helper(int n, int start, int end)
-{
-	if (start > end)
-		return -1;
-
-	int mid = start + (end - start) / 2;
-	int square = mid * mid;
-
-	if (square == n)
-		return mid;
-	else if (square < n)
-		return _sqrt_recursive_helper(n, mid + 1, end);
-	else
-		return _sqrt_recursive_helper(n, start, mid - 1);
-}
