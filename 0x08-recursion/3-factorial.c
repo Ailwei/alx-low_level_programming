@@ -12,12 +12,11 @@
 int factorial(int n)
 {
 	/* Error case: 'n' is lower than 0 */
-
 	if (n < 0)
 		return (-1);
 	/* Base case: factorial of 0 is 1 */
 	if (n == 0)
 		return (1);
 	/* Recursive call with n-1 */
-       	return (n * factorial(n - 1));
+	return (n * factorial(n - 1));
 }
