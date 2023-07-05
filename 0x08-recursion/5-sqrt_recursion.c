@@ -17,7 +17,7 @@ int _sqrt_recursion(int n)
 {
 	/* Error case: 'n' is negative */
 
-	if (n =< 0)
+	if (n <= 0)
 		return (-1);
 
 	/* Base case: square root of 0 or 1 is the number itself */
