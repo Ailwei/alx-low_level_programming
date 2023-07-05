@@ -31,8 +31,8 @@ int is_prime_number(int n)
     if (n % 2 == 0 || n % 3 == 0)
         return 0;
 
-    int divisor = 5;
-    int increment = 2;
+    int divisor;
+    int increment;
 
     while (divisor * divisor <= n)
     {
@@ -40,7 +40,7 @@ int is_prime_number(int n)
             return 0;
 
         divisor += increment;
-        increment = 6 - increment; // Alternates between 2 and 4
+        increment = 6 - increment; /* Alternates between 2 and 4 */
     }
 
     return 1;
