@@ -13,7 +13,7 @@ int _sqrt_recursion(int n)
     if (n == 0 || n == 1)
         return n;
 
-    return sqrt_helper(n, 1, n);
+    return  _sqrt_helper(n, 1, n);
 }
 
 /**
@@ -24,7 +24,7 @@ int _sqrt_recursion(int n)
  *
  * Return: The natural square root of @n within the given range, -1 if not found.
  */
-int sqrt_helper(int n, int start, int end)
+int _sqrt_helper(int n, int start, int end)
 {
     int mid;
 
@@ -33,12 +33,12 @@ int sqrt_helper(int n, int start, int end)
         mid = (start + end) / 2;
 
         if (mid * mid == n)
-            return mid;
+            return (mid);
 
         if (mid * mid < n)
-            return sqrt_helper(n, mid + 1, end);
+            return (_sqrt_helper(n, mid + 1, end));
 
-        return sqrt_helper(n, start, mid - 1);
+        return (_sqrt_helper(n, start, mid - 1));
     }
 
     return -1; /* Square root not found */
