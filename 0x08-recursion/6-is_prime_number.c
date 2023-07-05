@@ -20,5 +20,4 @@ int is_prime(int n)
 	}
 	return (1); /* No divisors found, it's a prime number*/
 }
-		    }
-
+}
