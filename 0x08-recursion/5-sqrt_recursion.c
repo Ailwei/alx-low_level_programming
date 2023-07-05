@@ -17,7 +17,7 @@ int _sqrt_recursion(int n)
 {
 	/* Error case: 'n' is negative */
 
-	if (n < 0)
+	if (n =< 0)
 		return (-1);
 
 	/* Base case: square root of 0 or 1 is the number itself */
@@ -39,7 +39,7 @@ int _sqrt_recursion(int n)
  */
 int _sqrt_helper(int n, int start, int end)
 {
-	int mid = (start - end) / 2;
+	int mid = (start + end) / 2;
 
 	if (start > end)
 	{
@@ -51,7 +51,7 @@ int _sqrt_helper(int n, int start, int end)
 		else if (mid * mid > n)
 			return (_sqrt_helper(n, start, mid - 1));
 		/* If the middle value is smaller, search in the upper half */
-		return (_sqrt_helper(n, mid - 1, end));
+		return (_sqrt_helper(n, mid + 1, end));
 	}
 	/* Error case: 'n' does not have a natural square root */
 	return (-1);
