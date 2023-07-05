@@ -40,9 +40,6 @@ int _sqrt_helper(int n, int start, int end)
 	if (start > end)
 		return (-1);
 
-	int mid = start + (end - start) / 2;
-	int square = mid * mid;
-
 	if (square == n)
 		return (mid);
 	else if (square > n)
