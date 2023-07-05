@@ -35,6 +35,8 @@ int _sqrt_recursion(int n)
  */
 int _sqrt_helper(int n, int start, int end)
 {
+	int mid, square;
+
 	if (start > end)
 		return (-1);
 
