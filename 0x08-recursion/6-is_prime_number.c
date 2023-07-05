@@ -21,6 +21,8 @@
  */
 int is_prime_number(int n)
 {
+	int divisor = 5;
+	int increment = 2;
     /* 0 and 1 are not prime numbers */
     if (n <= 1)
         return 0;
@@ -30,9 +32,6 @@ int is_prime_number(int n)
         return 1;
     if (n % 2 == 0 || n % 3 == 0)
         return 0;
-
-    int divisor;
-    int increment;
 
     while (divisor * divisor <= n)
     {
