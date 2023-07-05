@@ -3,7 +3,8 @@
  * _sqrt_recursion - Computes the natural square root of a number.
  * @n: The number to compute the square root of.
  *
- * Return: The natural square root of @n, -1 if @n does not have a natural square root.
+ * Return: The natural square root of @n, -1
+ * if @n does not have a natural square root.
  */
 int _sqrt_recursion(int n)
 {
@@ -20,11 +21,13 @@ int _sqrt_recursion(int n)
  * @start: The starting point for the search.
  * @end: The ending point for the search.
  *
- * Return: The natural square root of @n within the given range, -1 if not found.
+ * Return: The natural square root of @n
+ * within the given range, -1 if not found.
  */
 int _sqrt_helper(int n, int start, int end)
 {
 	int mid;
+
 	if (start <= end)
 	{
 		mid = (start + end) / 2;
@@ -34,5 +37,5 @@ int _sqrt_helper(int n, int start, int end)
 			return (_sqrt_helper(n, mid + 1, end));
 		return (_sqrt_helper(n, start, mid - 1));
 	}
-	return -1; /* Square root not found */
+	return (-1); /* Square root not found */
 }
