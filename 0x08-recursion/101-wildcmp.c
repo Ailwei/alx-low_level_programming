@@ -11,20 +11,33 @@
  */
 int wildcmp(char *s1, char *s2)
 {
-	if (*s1 == '\0' && *s2 == '\0')
-	{
-		/* Base case: both strings are empty, they are considered identical */
-		return (1);
-	}
-	if (*s1 == *s2 || *s2 == '*')
-	{
-		/* Case 1: current characters match or s2 has a wildcard '*' */
-		return (wildcmp(s1 + 1, s2 + 1));
-	}
-	if (*s2 == '*')
-	{
-		/*case 2: s2 has a wildcard '*' */
-		return (wildcmp(s1 + 1, s2) || wildcmp(s1, s2 + 1));
-	}
-	return (0); /* Characters don't match and string doesn't have a wildcard */
+    if (*s1 == '\0' && *s2 == '\0')
+    {
+        /* Base case: both strings are empty, they are considered identical */
+        return 1;
+    }
+    
+    if (*s1 == *s2 || *s2 == '*')
+    {
+        if (*s2 == '*' && *(s2 + 1) == '\0')
+        {
+            /* If s2 has a single wildcard '*', it matches the remaining characters in s1 */
+            return 1;
+        }
+        
+        if (*s1 != '\0')
+        {
+            if (wildcmp(s1 + 1, s2 + 1) == 1)
+                return 1;
+        }
+        
+        if (*s2 == '*')
+        {
+            if (wildcmp(s1, s2 + 1) == 1)
+                return 1;
+        }
+    }
+    
+    return 0; /* Characters don't match and string doesn't have a wildcard */
 }
+
