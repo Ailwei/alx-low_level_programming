@@ -1,40 +1,32 @@
 #include "main.h"
 #include <stdio.h>
-#include <string.h>
+
+int wildcmp(char *s1, char *s2);
 
 /**
- * is_palindrome - Checks if a given string is a palindrome.
+ * wildcmp - Compares two strings considering the special character '*'.
  *
- * @s: The string to check.
+ * @s1: The first string to compare.
+ * @s2: The second string to compare.
  *
- * Return: 1 if the string is a palindrome, 0 otherwise.
+ * Return: 1 if the strings can be considered identical, 0 otherwise.
  */
-int is_palindrome(char *s)
+int wildcmp(char *s1, char *s2)
 {
-	int length = strlen(s);
-	return (is_palindrome_helper(s, 0, length - 1));
-}
+    if (*s1 == '\0' && *s2 == '\0')
+    {
+        return 1; /* Base case: both strings are empty, they are considered identical */
+    }
 
-/**
- * is_palindrome_helper - Recursive helper function to check if a given string is a palindrome.
- *
- * @s: The string to check.
- * @start: The starting index.
- * @end: The ending index.
- *
- * Return: 1 if the string is a palindrome, 0 otherwise.
- */
-int is_palindrome_helper(char *s, int start, int end)
-{
-	int wildcmp(char *s1, char *s2);
+    if (*s1 == *s2 || *s2 == '*')
+    {
+        return wildcmp(s1 + 1, s2 + 1); /* Case 1: current characters match or s2 has a wildcard '*' */
+    }
 
-	/* Base case: when the start index surpasses the end index*/
-	if (start >= end)
-		return (1); /* Palindrome */
+    if (*s2 == '*')
+    {
+        return wildcmp(s1 + 1, s2) || wildcmp(s1, s2 + 1); /* Case 2: s2 has a wildcard '*' */
+    }
 
-    /* Recursive case: check if characters at start and end positions are equal */
-	if (s[start] != s[end])
-		return (0); /* Not a palindrome */
-	/* Move to the next pair of characters */
-	return (is_palindrome_helper(s, start + 1, end - 1));
+    return 0; /* Characters don't match and s2 doesn't have a wildcard */
 }
