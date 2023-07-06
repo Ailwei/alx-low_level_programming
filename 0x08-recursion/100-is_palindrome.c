@@ -12,6 +12,7 @@
 int is_palindrome(char *s)
 {
 	int length = strlen(s);
+
 	return (is_palindrome_helper(s, 0, length - 1));
 }
 
@@ -27,8 +28,7 @@ int is_palindrome(char *s)
  */
 int is_palindrome_helper(char *s, int start, int end)
 {
-	/* Base case: when the start index surpasses the end index *
-	 */
+	/* Base case: when the start index surpasses the end index8 */
 	if (start >= end)
 		return (1); /* Palindrome */
 	/* Recursive case: check if characters at start and end positions are equal */
