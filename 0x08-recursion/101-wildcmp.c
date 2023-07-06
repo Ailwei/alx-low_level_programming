@@ -25,6 +25,6 @@ int wildcmp(char *s1, char *s2)
 	{
 		/*case 2: s2 has a wildcard '*' */
 		return (wildcmp(s1 + 1, s2) || wildcmp(s1, s2 + 1));
-    }
+	}
 	return (0); /* Characters don't match and string doesn't have a wildcard */
 }
