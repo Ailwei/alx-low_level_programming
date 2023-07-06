@@ -20,9 +20,7 @@ int wildcmp(char *s1, char *s2)
 	{
 		if (*s2 == '*' && *(s2 + 1) == '\0')
 		{
-			/* If s2 has a single wildcard '*',
-			 * it matches the remaining characters in s1 
-			 */
+			/* If s2 has single wildcard '*',it matches the remaig s1 */
 			return (1);
 		}
 		if (*s1 != '\0')
