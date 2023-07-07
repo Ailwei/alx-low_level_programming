@@ -10,7 +10,7 @@
  */
 int multiply_numbers(int num1, int num2)
 {
-    return num1 * num2;
+	return (num1 * num2);
 }
 
 /**
@@ -23,28 +23,22 @@ int multiply_numbers(int num1, int num2)
 int main(int argc, char *argv[])
 {
 	int num1, num2, result;
-
 	/* Check if the number of arguments is correct */
-	
 	if (argc != 3)
 	{
 		printf("Error\n");
 		return (1);
 	}
 	/* Convert command-line arguments to integers */
-
 	num1 = atoi(argv[1]);
-       	num2 = atoi(argv[2]);
-	
+	num2 = atoi(argv[2]);
 	/* Check if the conversion was successful */
-	
 	if (num1 == 0 || num2 == 0)
 	{
 		printf("Error\n");
 		return (1);
 	}
 	/* Multiply the numbers and print the result */
-	
 	result = multiply_numbers(num1, num2);
 	printf("%d\n", result);
 	return (0);
