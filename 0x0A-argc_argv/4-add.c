@@ -12,10 +12,11 @@
 int add_positive_numbers(char *numbers[], int count)
 {
 	int i, sum = 0;
-	
+
 	for (i = 0; i < count; i++)
 	{
 		int j;
+
 		/* Check if the string contains only digits */
 		for (j = 0; numbers[i][j] != '\0'; j++)
 		{
@@ -26,7 +27,7 @@ int add_positive_numbers(char *numbers[], int count)
 		}
 		sum += atoi(numbers[i]);
 	}
-	return sum;
+	return (sum);
 }
 
 /**
@@ -44,7 +45,9 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
+
 		int sum = add_positive_numbers(argv + 1, argc - 1);
+
 		if (sum == -1)
 		{
 			printf("Error\n");
