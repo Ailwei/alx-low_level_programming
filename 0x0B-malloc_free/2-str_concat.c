@@ -8,7 +8,8 @@
  * @s2: The second string.
  *
  * Return: On success, returns a pointer to the concatenated string.
- *         Returns NULL if memory allocation fails or if either s1 or s2 is NULL.
+ *         Returns NULL if memory allocation fails or
+ *         if either s1 or s2 is NULL.
  */
 char *str_concat(char *s1, char *s2)
 {
