@@ -16,7 +16,7 @@ char *argstostr(int ac, char **av)
 	int position = 0;
 	int i, j;
 	char *result;
-	
+
 	if (ac == 0 || av == NULL)
 	{
 		return (NULL);
@@ -41,6 +41,7 @@ char *argstostr(int ac, char **av)
 		}
 		result[position++] = '\n';
 	}
-	result[total_length] = '\0';  /* Replace the last newline with null terminator */
+	/* Replace the last newline with null terminator*/
+	result[total_length] = '\0';
 	return (result);
 }
