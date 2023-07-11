@@ -2,96 +2,39 @@
 #include <stdlib.h>
 #include <string.h>
 
-int is_space(char c)
-{
-    return c == ' ' || c == '\t' || c == '\n';
-}
+/**
+ * strtow - convert a string to an array of words
+ * @str: string to convert
+ *
+ * Return: pointer to an array of words, or NULL if @str is NULL or empty
+ */
+char **strtow(char *str) {
+    char *p = str;
+    char *word;
+    char *end = NULL;
+    int len;
 
-int count_words(char *str)
-{
-    int count = 0;
-    int is_word = 0;
-    char ch;
-
-    while ((ch = *str++))
-    {
-        if (is_space(ch))
-        {
-            is_word = 0;
+    while (isspace(*p) || *p == '\0') {
+        if (*p == '\0') {
+            return NULL;
         }
-        else if (!is_word)
-        {
-            is_word = 1;
-            count++;
-        }
+        p++;
     }
-
-    return count;
-}
-
-char **strtow(char *str)
-{
-    int num_words, word_length, word_index, i;
-    int is_word = 0;
-    char *word_start = NULL;
-    char ch;
-    char **words;
-
-    if (str == NULL || *str == '\0')
-    {
+    len = (int)(p - str);
+    word = malloc(len + 1);
+    if (word == NULL) {
         return NULL;
     }
-
-    num_words = count_words(str);
-    if (num_words == 0)
-    {
-        return NULL;
-    }
-
-    words = (char **)malloc((num_words + 1) * sizeof(char *));
-    if (words == NULL)
-    {
-        return NULL;  /* Failed to allocate memory */
-    }
-
-    word_index = 0;
-
-    while ((ch = *str++))
-    {
-        if (is_space(ch))
-        {
-            is_word = 0;
-        }
-        else if (!is_word)
-        {
-            is_word = 1;
-            word_start = str - 1;
-        }
-
-        if (!is_word && word_start)
-        {
-            word_length = str - word_start - 1;
-            words[word_index] = (char *)malloc((word_length + 1) * sizeof(char));
-            if (words[word_index] == NULL)
-            {
-                /* Free memory for previously allocated words */
-                for (i = 0; i < word_index; i++)
-                {
-                    free(words[i]);
-                }
-                free(words);
-                return NULL;  /* Failed to allocate memory */
-            }
-
-            strncpy(words[word_index], word_start, word_length);
-            words[word_index][word_length] = '\0';
-            word_index++;
-            word_start = NULL;
+    *word = '\0';
+    end = word + len;
+    while (p < end) {
+        *(word + len) = *p;
+        p++;
+        if (*p == '\n' || *p == '\r') {
+            *(word + len + 1) = '\0';
+            break;
         }
     }
-
-    words[word_index] = NULL;  /* Mark the end of the array with NULL */
-
-    return words;
+    *(word + len + 1) = '\0';
+    return word;
 }
-
