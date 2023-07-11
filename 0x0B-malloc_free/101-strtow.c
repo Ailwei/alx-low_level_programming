@@ -1,47 +1,55 @@
-#include "main.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
-#include <stdio.h>
-#include <math.h>
+#include "main.h"
+
 /**
- * strtow - convert a string to an array of words
- * @str: string to convert
+ * strtow - Splits a string into words.
+ * @str: The input string to be split.
  *
- * Return: pointer to an array of words, or NULL if @str is NULL or empty
+ * Return: A pointer to an array of strings (words), or NULL if str is NULL or empty.
+ * Each element of the array contains a single word, null-terminated.
+ * The last element of the array is NULL.
+ * If the function fails, it returns NULL.
  */
-extern char **strtow(char *str)
+char **strtow(char *str)
 {
-	char *p = str;
-	char *word;
-	char *end = NULL;
-	int len;
-       	while (isspace(*p) || *p == '\0')
+	if (str == NULL || *str == '\0')
+		return NULL;
+
+	int word_count = 0;
+	int in_word = 0;
+	int i;
+
+	for (i = 0; str[i] != '\0'; i++)
 	{
-		if (*p == '\0')
+		if (str[i] != ' ')
 		{
-			return (NULL);
+			if (!in_word)
+			{
+				in_word = 1;
+				word_count++;
+			}
 		}
-		p++;
+		else
+			in_word = 0;
 	}
-	len = (int)(p - str);
-	word = malloc(len + 1);
-	if (word == NULL)
+
+	char **words = (char **)malloc((word_count + 1) * sizeof(char *));
+	if (words == NULL)
+		return NULL;
+
+	int word_index = 0;
+	char *token;
+
+	token = strtok(str, " ");
+	while (token != NULL)
 	{
-		return (NULL);
+		words[word_index] = token;
+		word_index++;
+		token = strtok(NULL, " ");
 	}
-	*word = '\0';
-	end = word + len;
-	while (p < end)
-	{
-		*(word + len) = *p;
-		p++;
-		if (*p == '\n' || *p == '\r')
-		{
-			*(word + len + 1) = '\0';
-			break;
-		}
-	}
-	*(word + len + 1) = '\0';
-	return 0;
+	words[word_count] = NULL;
+
+	return words;
 }
