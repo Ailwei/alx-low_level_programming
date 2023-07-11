@@ -12,7 +12,6 @@
  * The last element of the array is NULL.
  * If the function fails, it returns NUL
  */
-char **strtow(char *str);
 
 char **strtow(char *str)
 {
