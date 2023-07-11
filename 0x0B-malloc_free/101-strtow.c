@@ -10,46 +10,49 @@
  * Return: A pointer to an array of strings (words), or NULL if str is NULL or empty.
  * Each element of the array contains a single word, null-terminated.
  * The last element of the array is NULL.
- * If the function fails, it returns NULL.
+ * If the function fails, it returns NUL
  */
+char **strtow(char *str);
+
 char **strtow(char *str)
 {
-	if (str == NULL || *str == '\0')
-		return NULL;
+    int word_count = 0;
+    int in_word = 0;
+    int i;
 
-	int word_count = 0;
-	int in_word = 0;
-	int i;
+    char **words;
+    char *token;
 
-	for (i = 0; str[i] != '\0'; i++)
-	{
-		if (str[i] != ' ')
-		{
-			if (!in_word)
-			{
-				in_word = 1;
-				word_count++;
-			}
-		}
-		else
-			in_word = 0;
-	}
+    if (str == NULL || *str == '\0')
+        return NULL;
 
-	char **words = (char **)malloc((word_count + 1) * sizeof(char *));
-	if (words == NULL)
-		return NULL;
+    for (i = 0; str[i] != '\0'; i++)
+    {
+        if (str[i] != ' ')
+        {
+            if (!in_word)
+            {
+                in_word = 1;
+                word_count++;
+            }
+        }
+        else
+            in_word = 0;
+    }
 
-	int word_index = 0;
-	char *token;
+    words = (char **)malloc((word_count + 1) * sizeof(char *));
+    if (words == NULL)
+        return NULL;
 
-	token = strtok(str, " ");
-	while (token != NULL)
-	{
-		words[word_index] = token;
-		word_index++;
-		token = strtok(NULL, " ");
-	}
-	words[word_count] = NULL;
+    token = strtok(str, " ");
+    i = 0;
+    while (token != NULL)
+    {
+        words[i] = token;
+        i++;
+        token = strtok(NULL, " ");
+    }
+    words[word_count] = NULL;
 
-	return words;
+    return words;
 }
