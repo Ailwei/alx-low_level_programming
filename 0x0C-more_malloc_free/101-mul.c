@@ -1,134 +1,145 @@
-#include "main.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <stdbool.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
 /**
- * _memset - fills memory with a constant byte
+ * validate_input - Validates if the given strings represent valid positive numbers.
+ * The strings should only contain digits.
  *
- * @s: input pointer that represents memory block
- *     to fill
- * @b: characters to fill/set
- * @n: number of bytes to be filled
+ * @num1: The first number string to validate.
+ * @num2: The second number string to validate.
  *
- * Return: pointer to the filled memory area
+ * Return: true if both strings are valid positive numbers, false otherwise.
  */
-
-char *_memset(char *s, char b, unsigned int n)
+bool validate_input(const char *num1, const char *num2)
 {
-	unsigned int i = 0;
+    for (int i = 0; num1[i] != '\0'; i++)
+    {
+        if (!isdigit(num1[i]))
+        {
+            return false;
+        }
+    }
 
-	while (i < n)
-	{
-		s[i] = b;
-		i++;
-	}
-	return (s);
+    for (int i = 0; num2[i] != '\0'; i++)
+    {
+        if (!isdigit(num2[i]))
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 /**
- * _calloc - function that allocates memory
- *           for an array using memset
- *
- * @nmemb: size of array
- * @size: size of each element
- *
- * Return: pointer to new allocated memory
+ * print_error - Prints an error message and exits the program with status code 98.
  */
-
-void *_calloc(unsigned int nmemb, unsigned int size)
+void print_error(void)
 {
-	char *ptr;
-
-	if (nmemb == 0 || size == 0)
-		return (NULL);
-	ptr = malloc(nmemb * size);
-	if (ptr == NULL)
-		return (NULL);
-	_memset(ptr, 0, nmemb * size);
-
-	return (ptr);
+    printf("Error\n");
+    exit(98);
 }
 
-
 /**
- * multiply - initialize array with 0 byte
+ * main - The entry point of the program.
  *
- * @s1: string 1
- * @s2: string 2
+ * @argc: The number of command-line arguments.
+ * @argv: An array of strings containing the command-line arguments.
  *
- * Return: nothing
+ * Return: The exit status of the program.
  */
-
-void multiply(char *s1, char *s2)
-{
-	int i, l1, l2, total_l, f_digit, s_digit, res = 0, tmp;
-	char *ptr;
-	void *temp;
-
-	l1 = _length(s1);
-	l2 = _length(s2);
-	tmp = l2;
-	total_l = l1 + l2;
-	ptr = _calloc(sizeof(int), total_l);
-
-	/* store our pointer address to free later */
-	temp = ptr;
-
-	for (l1--; l1 >= 0; l1--)
-	{
-		f_digit = s1[l1] - '0';
-		res = 0;
-		l2 = tmp;
-		for (l2--; l2 >= 0; l2--)
-		{
-			s_digit = s2[l2] - '0';
-			res += ptr[l2 + l1 + 1] + (f_digit * s_digit);
-			ptr[l1 + l2 + 1] = res % 10;
-			res /= 10;
-		}
-		if (res)
-			ptr[l1 + l2 + 1] = res % 10;
-	}
-
-	while (*ptr == 0)
-	{
-		ptr++;
-		total_l--;
-	}
-
-	for (i = 0; i < total_l; i++)
-		printf("%i", ptr[i]);
-	printf("\n");
-	free(temp);
-}
-
-
-/**
- * main - Entry point
- *
- * Description: a program that multiplies
- *            two positive numbers
- *
- * @argc: number of arguments
- * @argv: arguments array
- *
- * Return: 0 on success 98 on faliure
- */
-
 int main(int argc, char *argv[])
 {
-	char *n1 = argv[1];
-	char *n2 = argv[2];
+    /* Check if the correct number of arguments is provided */
+    if (argc != 3)
+    {
+        print_error();
+    }
 
-	if (argc != 3 || check_number(n1) || check_number(n2))
-		error_exit();
+    /* Get the number strings from the command-line arguments */
+    const char *num1 = argv[1];
+    const char *num2 = argv[2];
 
-	if (*n1 == '0' || *n2 == '0')
-	{
-		_putchar('0');
-		_putchar('\n');
-	}
-	else
-		multiply(n1, n2);
-	return (0);
+    /* Validate the number strings */
+    if (!validate_input(num1, num2))
+    {
+        print_error();
+    }
+
+    /* Create a pipe for communication between parent and child processes */
+    int pipefd[2];
+    if (pipe(pipefd) == -1)
+    {
+        print_error();
+    }
+
+    /* Fork a child process */
+    pid_t pid = fork();
+    if (pid == -1)
+    {
+        print_error();
+    }
+    else if (pid == 0)
+    {
+        /* Child process */
+
+        /* Close the unused read end of the pipe */
+        close(pipefd[0]);
+
+        /* Redirect the stdout to the write end of the pipe */
+        dup2(pipefd[1], STDOUT_FILENO);
+
+        /* Execute bc command to perform the multiplication */
+        execlp("bc", "bc", "-q", "-l", "-e", "scale=10", "-e", "a=10", "-e", num1, "*", num2, NULL);
+
+        /* If execlp fails, print an error and exit */
+        print_error();
+    }
+    else
+    {
+        /* Parent process */
+
+        /* Close the unused write end of the pipe */
+        close(pipefd[1]);
+
+        char result[100];
+
+        /* Read the result from the read end of the pipe */
+        ssize_t bytesRead = read(pipefd[0], result, sizeof(result) - 1);
+
+        /* Close the read end of the pipe */
+        close(pipefd[0]);
+
+        if (bytesRead > 0)
+        {
+            /* Null-terminate the result string */
+            result[bytesRead] = '\0';
+
+            /* Print the result */
+            printf("%s", result);
+        }
+        else
+        {
+            /* If no data is read, print an error */
+            print_error();
+        }
+
+        /* Wait for the child process to complete */
+        int status;
+        waitpid(pid, &status, 0);
+
+        /* Check if the child process exited successfully */
+        if (WEXITSTATUS(status) != 0)
+        {
+            print_error();
+        }
+    }
+
+    return 0;
 }
+
