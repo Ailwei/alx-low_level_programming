@@ -1,145 +1,101 @@
-#include <stdio.h>
+#include "main.h"
 #include <stdlib.h>
-#include <ctype.h>
-#include <stdbool.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
+#include <stdio.h>
+#include "main.h"
 
 /**
- * validate_input - Validates if the given strings represent valid positive numbers.
- * The strings should only contain digits.
+ * is_digit - checks if a string contains a non-digit char
+ * @s: string to be evaluated
  *
- * @num1: The first number string to validate.
- * @num2: The second number string to validate.
- *
- * Return: true if both strings are valid positive numbers, false otherwise.
+ * Return: 0 if a non-digit is found, 1 otherwise
  */
-bool validate_input(const char *num1, const char *num2)
+int is_digit(char *s)
 {
-    for (int i = 0; num1[i] != '\0'; i++)
-    {
-        if (!isdigit(num1[i]))
-        {
-            return false;
-        }
-    }
+	int i = 0;
 
-    for (int i = 0; num2[i] != '\0'; i++)
-    {
-        if (!isdigit(num2[i]))
-        {
-            return false;
-        }
-    }
-
-    return true;
+	while (s[i])
+	{
+		if (s[i] < '0' || s[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 /**
- * print_error - Prints an error message and exits the program with status code 98.
+ * _strlen - returns the length of a string
+ * @s: string to evaluate
+ *
+ * Return: the length of the string
  */
-void print_error(void)
+int _strlen(char *s)
 {
-    printf("Error\n");
-    exit(98);
+	int i = 0;
+
+	while (s[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
 }
 
 /**
- * main - The entry point of the program.
+ * errors - handles errors for main
+ */
+void errors(void)
+{
+	printf("Error\n");
+	exit(98);
+}
+
+/**
+ * main - multiplies two positive numbers
+ * @argc: number of arguments
+ * @argv: array of arguments
  *
- * @argc: The number of command-line arguments.
- * @argv: An array of strings containing the command-line arguments.
- *
- * Return: The exit status of the program.
+ * Return: always 0 (Success)
  */
 int main(int argc, char *argv[])
 {
-    /* Check if the correct number of arguments is provided */
-    if (argc != 3)
-    {
-        print_error();
-    }
+	char *s1, *s2;
+	int len1, len2, len, i, carry, digit1, digit2, *result, a = 0;
 
-    /* Get the number strings from the command-line arguments */
-    const char *num1 = argv[1];
-    const char *num2 = argv[2];
-
-    /* Validate the number strings */
-    if (!validate_input(num1, num2))
-    {
-        print_error();
-    }
-
-    /* Create a pipe for communication between parent and child processes */
-    int pipefd[2];
-    if (pipe(pipefd) == -1)
-    {
-        print_error();
-    }
-
-    /* Fork a child process */
-    pid_t pid = fork();
-    if (pid == -1)
-    {
-        print_error();
-    }
-    else if (pid == 0)
-    {
-        /* Child process */
-
-        /* Close the unused read end of the pipe */
-        close(pipefd[0]);
-
-        /* Redirect the stdout to the write end of the pipe */
-        dup2(pipefd[1], STDOUT_FILENO);
-
-        /* Execute bc command to perform the multiplication */
-        execlp("bc", "bc", "-q", "-l", "-e", "scale=10", "-e", "a=10", "-e", num1, "*", num2, NULL);
-
-        /* If execlp fails, print an error and exit */
-        print_error();
-    }
-    else
-    {
-        /* Parent process */
-
-        /* Close the unused write end of the pipe */
-        close(pipefd[1]);
-
-        char result[100];
-
-        /* Read the result from the read end of the pipe */
-        ssize_t bytesRead = read(pipefd[0], result, sizeof(result) - 1);
-
-        /* Close the read end of the pipe */
-        close(pipefd[0]);
-
-        if (bytesRead > 0)
-        {
-            /* Null-terminate the result string */
-            result[bytesRead] = '\0';
-
-            /* Print the result */
-            printf("%s", result);
-        }
-        else
-        {
-            /* If no data is read, print an error */
-            print_error();
-        }
-
-        /* Wait for the child process to complete */
-        int status;
-        waitpid(pid, &status, 0);
-
-        /* Check if the child process exited successfully */
-        if (WEXITSTATUS(status) != 0)
-        {
-            print_error();
-        }
-    }
-
-    return 0;
+	s1 = argv[1], s2 = argv[2];
+	if (argc != 3 || !is_digit(s1) || !is_digit(s2))
+		errors();
+	len1 = _strlen(s1);
+	len2 = _strlen(s2);
+	len = len1 + len2 + 1;
+	result = malloc(sizeof(int) * len);
+	if (!result)
+		return (1);
+	for (i = 0; i <= len1 + len2; i++)
+		result[i] = 0;
+	for (len1 = len1 - 1; len1 >= 0; len1--)
+	{
+		digit1 = s1[len1] - '0';
+		carry = 0;
+		for (len2 = _strlen(s2) - 1; len2 >= 0; len2--)
+		{
+			digit2 = s2[len2] - '0';
+			carry += result[len1 + len2 + 1] + (digit1 * digit2);
+			result[len1 + len2 + 1] = carry % 10;
+			carry /= 10;
+		}
+		if (carry > 0)
+			result[len1 + len2 + 1] += carry;
+	}
+	for (i = 0; i < len - 1; i++)
+	{
+		if (result[i])
+			a = 1;
+		if (a)
+			putchar(result[i] + '0');
+	}
+	if (!a)
+		putchar('0');
+	putchar('\n');
+	free(result);
+	return (0);
 }
 
