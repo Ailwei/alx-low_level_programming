@@ -18,13 +18,9 @@ void *malloc_checked(unsigned int b)
 
 	/* Check if malloc succeeded */
 	if (ptr == NULL)
-	{
-		/* Print an error message to stderr */
-		fprintf(stderr, "Error: malloc failed\n");
 
 		/* Terminate the process with status 98 */
 		exit(98);
-	}
 
 	/* Return the allocated memory pointer */
 	return (ptr);
