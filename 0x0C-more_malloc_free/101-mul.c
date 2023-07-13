@@ -1,72 +1,40 @@
 #include <stdio.h>
-#include <ctype.h>
-#include "main.h"
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
-/**
- * is_valid_number - Checks if a string consists of only digits
- * @str: The string to check
- *
- * Return: 1 if the string contains only digits, 0 otherwise
- */
-int is_valid_number(char *str)
+int multiply(const char *num1, const char *num2)
 {
-    while (*str != '\0')
-    {
-        if (!isdigit(*str))
-            return 0;
-        str++;
-    }
-
-    return 1;
+    int result = atoi(num1) * atoi(num2);
+    return result;
 }
 
-/**
- * multiply - Multiplies two positive numbers
- * @num1: The first number as a string
- * @num2: The second number as a string
- */
-void multiply(char *num1, char *num2)
+void validate_arguments(int argc, char *argv[])
 {
-    int len1 = 0, len2 = 0, i, j;
-    int *result;
-    int carry = 0;
-
-    /* Calculate the length of both numbers */
-    while (num1[len1] != '\0')
-        len1++;
-
-    while (num2[len2] != '\0')
-        len2++;
-
-    /* Allocate memory for the result */
-    result = calloc(len1 + len2, sizeof(int));
-    if (result == NULL)
+    if (argc != 3)
     {
         printf("Error\n");
         exit(98);
     }
 
-    /* Perform the multiplication */
-    for (i = len1 - 1; i >= 0; i--)
+    for (int i = 1; i <= 2; i++)
     {
-        carry = 0;
-        for (j = len2 - 1; j >= 0; j--)
+        for (int j = 0; j < strlen(argv[i]); j++)
         {
-            int product = (num1[i] - '0') * (num2[j] - '0') + result[i + j + 1] + carry;
-            result[i + j + 1] = product % 10;
-            carry = product / 10;
+            if (!isdigit(argv[i][j]))
+            {
+                printf("Error\n");
+                exit(98);
+            }
         }
-        result[i] = carry;
     }
-
-    /* Print the result */
-    if (result[0] != 0)
-        printf("%d", result[0]);
-    for (i = 1; i < len1 + len2; i++)
-        printf("%d", result[i]);
-    printf("\n");
-
-    /* Free allocated memory */
-     free(result);
 }
+
+int main(int argc, char *argv[])
+{
+    validate_arguments(argc, argv);
+    int result = multiply(argv[1], argv[2]);
+    printf("%d\n", result);
+    return 0;
+}
+
