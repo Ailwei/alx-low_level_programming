@@ -1,14 +1,4 @@
-#include <stdio.h>
-
-#include <stdio.h>
-
-typedef struct dog
-{
-    char *name;
-    float age;
-    char *owner;
-} dog_t;
-
+#include "main.h"
 /**
  * init_dog - Initializes a struct dog
  * @d: Pointer to the struct dog to initialize
