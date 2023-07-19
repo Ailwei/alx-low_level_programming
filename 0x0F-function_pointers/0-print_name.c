@@ -17,5 +17,5 @@ void print_function(char *name)
  */
 void print_name(char *name, void (*f)(char *))
 {
-	printf("d%", f(name));
+	f(name);
 }
