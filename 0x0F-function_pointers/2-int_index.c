@@ -7,7 +7,8 @@
  * @size: The number of elements in the array.
  * @cmp: A pointer to the function used for comparison.
  *
- * Return: The index of the first matching element, or -1 if no match or invalid size.
+ * Return: The index of the first matching element,
+ * or -1 if no match or invalid size.
  */
 int int_index(int *array, int size, int (*cmp)(int))
 {
