@@ -17,17 +17,5 @@ void print_function(char *name)
  */
 void print_name(char *name, void (*f)(char *))
 {
-	f(name);
-}
-/**
- * main - Entry point of the program.
- *
- * Return: Always 0.
- */
-int main(void)
-{
-	char name[] = "John Doe";
-
-	print_name(name, print_function);
-	return 0;
+	printf("d%", f(name));
 }
