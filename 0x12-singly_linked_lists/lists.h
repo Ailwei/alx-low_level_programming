@@ -1,6 +1,4 @@
-lists.h
-
-#ifndef LISTS_H
+fndef LISTS_H
 #define LISTS_H
 
 /**
@@ -12,8 +10,6 @@ lists.h
  *       * Description: singly linked list node structure
  *        * for Holberton project
  *         */
-#include <stddef.h> /* For size_t */
-#include <stdlib.h>
 typedef struct list_s
 {
 		char *str;
@@ -28,5 +24,3 @@ list_t *add_node_end(list_t **head, const char *str);
 void free_list(list_t *head);
 
 #endif
-
-
