@@ -12,6 +12,8 @@ lists.h
  *       * Description: singly linked list node structure
  *        * for Holberton project
  *         */
+#include <stddef.h> /* For size_t */
+#include <stdlib.h>
 typedef struct list_s
 {
 		char *str;
