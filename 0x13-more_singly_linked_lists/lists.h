@@ -2,7 +2,7 @@
 #define LISTS_H
 
 #include <stddef.h>
-
+#include <stdio.h>
 /**
  * struct listint_s - A singly linked list node.
  * @n: Integer data for the node.
