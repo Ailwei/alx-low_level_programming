@@ -1,60 +1,52 @@
 #include "lists.h"
-#include <stdio.h>
 #include <stdlib.h>
 
-struct listint_s {
-    int data;
-    struct listint_s *next;
-};
-
 /**
- * insert_nodeint_at_index - Inserts a new node at a given position in the list.
- * @head: Double pointer to the head of the list.
- * @idx: Index of the list where the new node should be added.
- * @n: Integer value for the new node.
- *
- * Return: Address of the new node, or NULL if it failed.
+ * insert_nodeint_at_index - inserts a new node at a given position
+ * @head: pointer to the beginning of the linked list
+ * @idx: index where to insert
+ * @n: value for n
+ * Return: address of new node or NULL if fails
  */
-struct listint_s *insert_nodeint_at_index(struct listint_s **head, unsigned int idx, int n)
+listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 {
-	struct listinit_s *current = *head;
-	unsigned init current_idx = 0;
-	struct listinit_s *new_node = malloc(sizeof(listinits));
-    if (head == NULL)
-    {
-        return NULL; /* Invalid input */
-    }
+	listint_t *new_node, *temp;
+	unsigned int i = 0;
 
-    if (new_node == NULL)
-    {
-        return NULL; /* Memory allocation failed */
-    }
+	if (idx == 0)
+	{
+		new_node = malloc(sizeof(listint_t));
+		if (!new_node)
+			return (NULL);
 
-    new_node->data = n;
-    new_node->next = NULL;
+		new_node->n = n;
+		new_node->next = *head;
+		*head = new_node;
 
-    if (idx == 0)
-    {
-        new_node->next = *head;
-        *head = new_node;
-        return new_node;
-    }
+		return (*head);
+	}
 
-    while (current != NULL && current_idx < idx - 1)
-    {
-        current = current->next;
-        current_idx++;
-    }
+	temp = *head;
+	while (temp && i < idx - 1)
+	{
+		temp = temp->next;
+		i++;
+	}
 
-    if (current == NULL || current_idx != idx - 1)
-    {
-        free(new_node);
-        return NULL; /* Invalid index */
-    }
+	if (temp)
+	{
+		new_node = malloc(sizeof(listint_t));
+		if (!new_node)
+			return (NULL);
 
-    new_node->next = current->next;
-    current->next = new_node;
+		new_node->n = n;
+		new_node->next = temp->next;
+		temp->next = new_node;
 
-    return new_node;
-i}i
+		return (new_node);
+	}
+
+	return (NULL);
+}
+
 
