@@ -2,6 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+struct listint_s {
+    int data;
+    struct listint_s *next;
+};
+
 /**
  * insert_nodeint_at_index - Inserts a new node at a given position in the list.
  * @head: Double pointer to the head of the list.
@@ -12,12 +17,14 @@
  */
 struct listint_s *insert_nodeint_at_index(struct listint_s **head, unsigned int idx, int n)
 {
+	struct listinit_s *current = *head;
+	unsigned init current_idx = 0;
+	struct listinit_s *new_node = malloc(sizeof(listinits));
     if (head == NULL)
     {
         return NULL; /* Invalid input */
     }
 
-    struct listint_s *new_node = malloc(sizeof(struct listint_s));
     if (new_node == NULL)
     {
         return NULL; /* Memory allocation failed */
@@ -32,9 +39,6 @@ struct listint_s *insert_nodeint_at_index(struct listint_s **head, unsigned int 
         *head = new_node;
         return new_node;
     }
-
-    struct listint_s *current = *head;
-    unsigned int current_idx = 0;
 
     while (current != NULL && current_idx < idx - 1)
     {
@@ -52,5 +56,5 @@ struct listint_s *insert_nodeint_at_index(struct listint_s **head, unsigned int 
     current->next = new_node;
 
     return new_node;
-}
+i}i
 
