@@ -17,19 +17,3 @@ int get_bit(unsigned long int n, unsigned int index)
 	unsigned long int mask = 1UL << index;
 	return (n & mask) ? 1 : 0;
 }
-
-int main(void)
-{
-	unsigned long int num = 100;
-	unsigned int bit_index = 2;
-	int result = get_bit(num, bit_index);
-
-	if (result != -1) {
-		printf("The bit at index %u is: %d\n", bit_index, result);
-	} else {
-		printf("Error: Invalid index.\n");
-	}
-
-	return 0;
-}
-
