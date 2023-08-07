@@ -1,71 +1,49 @@
-#include <unistd.h>
-#include <fcntl.h>
-#include <stddef.h>
-
+#include "main.h"
+#include <stdlib.h>
 /**
- * read_textfile - Reads and prints a text file to the POSIX standard output.
- * @filename: The name of the file to read.
- * @letters: The number of letters to read and print.
+ * read_textfile - Read the specified number of letters from a text file and print to STDOUT.
+ * @filename: The name of the text file being read.
+ * @letters: The number of letters to be read.
  *
- * Return: The actual number of letters read and printed, 0 on failure.
+ * Return: The actual number of bytes read and printed. 0 when the function fails or the filename is NULL.
  */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	if (filename == NULL)
-		return (0); /* Return 0 if filename is NULL */
+    char *buffer;
+    ssize_t file_descriptor, bytes_read, bytes_written;
 
-	int fd = open(filename, O_RDONLY); /* Open the file in read-only mode */
-	if (fd == -1)
-		return (0); /* Return 0 if the file can't be opened */
+    if (filename == NULL)
+        return (0);
 
-	char buffer[1024]i#include <unistd.h>
-#include <fcntl.h>
-#include <stddef.h>
+    /* Open the file in read-only mode */
+    file_descriptor = open(filename, O_RDONLY);
+    if (file_descriptor == -1)
+        return (0);
 
-/**
- * read_textfile - Reads and prints a text file to the POSIX standard output.
- * @filename: The name of the file to read.
- * @letters: The number of letters to read and print.
- *
- * Return: The actual number of letters read and printed, 0 on failure.
- */
-ssize_t read_textfile(const char *filename, size_t letters)
-{
-	if (filename == NULL)
-		return (0); /* Return 0 if filename is NULL */
+    /* Allocate memory for the buffer to read the specified number of letters */
+    buffer = malloc(sizeof(char) * letters);
+    if (buffer == NULL)
+    {
+        close(file_descriptor);
+        return (0);
+    }
 
-	int fd = open(filename, O_RDONLY); /* Open the file in read-only mode */
-	if (fd == -1)
-		return (0); /* Return 0 if the file can't be opened */
+    /* Read the specified number of letters from the file into the buffer */
+    bytes_read = read(file_descriptor, buffer, letters);
+    if (bytes_read == -1)
+    {
+        free(buffer);
+        close(file_descriptor);
+        return (0);
+    }
 
-	char buffer[1024]; /* Buffer to read data from the file */
-	ssize_t total_read = 0; /* Total number of letters read */
+    /* Write the content of the buffer to the standard output (STDOUT) */
+    bytes_written = write(STDOUT_FILENO, buffer, bytes_read);
 
-	while (letters > 0)
-	{
-		ssize_t bytes_read = read(fd, buffer, sizeof(buffer));
-		if (bytes_read == -1)
-		{
-			close(fd);
-			return (0); /* Return 0 if there's an error reading the file */
-		}
+    /* Free the allocated memory and close the file descriptor */
+    free(buffer);
+    close(file_descriptor);
 
-		if (bytes_read == 0)
-			break; /* Reached end of file */
-
-		ssize_t bytes_to_print = (bytes_read < letters) ? bytes_read : letters;
-		ssize_t bytes_written = write(STDOUT_FILENO, buffer, bytes_to_print);
-		if (bytes_written == -1 || bytes_written != bytes_to_print)
-		{
-			close(fd);
-			return (0); /* Return 0 if there's an error writing or not all bytes are written */
-		}
-
-		total_read += bytes_to_print;
-		letters -= bytes_to_print;
-	}
-
-	close(fd);
-	return (total_read);
+    return (bytes_written);
 }
 
