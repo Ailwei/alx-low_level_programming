@@ -1,65 +1,132 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <elf.h>
 #include <string.h>
+#include <errno.h>
 
 /**
- * print_error - Prints error message to stderr and exits with status code 98.
- * @message: The error message to be displayed.
+ * struct ElfHeader - ELF header structure
+ * @e_ident: ELF identification bytes
+ * @e_type: Object file type
+ * @e_machine: Machine architecture
+ * @e_version: ELF format version
+ * @e_entry: Entry point virtual address
+ * @e_phoff: Program header table file offset
+ * @e_shoff: Section header table file offset
+ * @e_flags: Processor-specific flags
+ * @e_ehsize: ELF header size
+ * @e_phentsize: Size of program header entry
+ * @e_phnum: Number of program header entries
+ * @e_shentsize: Size of section header entry
+ * @e_shnum: Number of section header entries
+ * @e_shstrndx: Section header table index of section name string table
  */
-void print_error(const char *message)
+typedef struct ElfHeader
 {
-	fprintf(stderr, "Error: %s\n", message);
-	exit(98);
-}
+	char e_ident[16];
+	uint16_t e_type;
+	uint16_t e_machine;
+	uint32_t e_version;
+	uint64_t e_entry;
+	uint64_t e_phoff;
+	uint64_t e_shoff;
+	uint32_t e_flags;
+	uint16_t e_ehsize;
+	uint16_t e_phentsize;
+	uint16_t e_phnum;
+	uint16_t e_shentsize;
+	uint16_t e_shnum;
+	uint16_t e_shstrndx;
+} ElfHeader;
 
 /**
- * display_elf_header_info - Displays information contained in the ELF header.
- * @header: Pointer to the ELF header structure.
+ * printElfHeader - Print ELF header information
+ * @header: Pointer to ELF header structure
  */
-void display_elf_header_info(const Elf64_Ehdr *header)
+void printElfHeader(const ElfHeader *header)
 {
-	printf("Magic: %02x %02x %02x %02x\n", header->e_ident[EI_MAG0],
-	       header->e_ident[EI_MAG1], header->e_ident[EI_MAG2],
-	       header->e_ident[EI_MAG3]);
-	/* Display other fields of the ELF header as required */
-	/* You can refer to 'struct elf' man page for the respective offsets & size */
-}
+	int i;
 
-/**
- * main - Entry point of the program.
- * @argc: The number of command-line arguments.
- * @argv: An array of command-line argument strings.
- * Return: 0 on success, 98 on error.
- */
+	printf("ELF Header:\n");
+	printf("  Magic:   ");
+	for (i = 0; i < 16; i++)
+		printf("%02x ", header->e_ident[i]);
+	printf("\n");
+	printf("  Class:                             ");
+	switch (header->e_ident[4])
+	{
+	case 1:
+		printf("ELF32\n");
+		break;
+	case 2:
+		printf("ELF64\n");
+		break;
+	default:
+		printf("<unknown: %02x>\n", header->e_ident[4]);
+		break;
+	}
+	printf("  Data:                              %s\n", (header->e_ident[5] == 1) ? "2's complement, little endian" : "2's complement, big endian");
+	printf("  Version:                           %u (current)\n", header->e_version);
+	printf("  OS/ABI:                            %s\n", (header->e_ident[7] == 0) ? "UNIX - System V" : "<unknown>");
+	printf("  ABI Version:                       %u\n", header->e_ident[8]);
+	printf("  Type:                              ");
+	switch (header->e_type)
+	{
+	case 1:
+		printf("REL (Relocatable file)\n");
+		break;
+	case 2:
+		printf("EXEC (Executable file)\n");
+		break;
+	case 3:
+		printf("DYN (Shared object file)\n");
+		break;
+	default:
+		printf("<unknown: %04x>\n", header->e_type);
+		break;
+	}
+	printf("  Entry point address:               0x%lx\n", header->e_entry);
+}
 int main(int argc, char *argv[])
 {
-	const char *filename;
-	int fd;
-	Elf64_Ehdr header;
+    const char *filename;
+    int fd;
+    ElfHeader header;
 
-	if (argc != 2)
-		print_error("Usage: elf_header elf_filename");
+    if (argc != 2)
+    {
+        fprintf(stderr, "Usage: %s elf_filename\n", argv[0]);
+        return 98;
+    }
 
-	filename = argv[1];
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		print_error("Failed to open the file.");
+    filename = argv[1];
+    fd = open(filename, O_RDONLY);
 
-	/* Read ELF header */
-	if (read(fd, &header, sizeof(header)) != sizeof(header))
-		print_error("Failed to read ELF header.");
+    if (fd == -1)
+    {
+        fprintf(stderr, "Error opening file: %s\n", strerror(errno));
+        return 98;
+    }
 
-	/* Check if it's a valid ELF file */
-	if (memcmp(header.e_ident, ELFMAG, SELFMAG) != 0)
-		print_error("Not an ELF file.");
+    if (read(fd, &header, sizeof(header)) != sizeof(header))
+    {
+        fprintf(stderr, "Error reading ELF header: %s\n", strerror(errno));
+        close(fd);
+        return 98;
+    }
 
-	/* Display ELF header information */
-	display_elf_header_info(&header);
+    if (memcmp(header.e_ident, "\x7F""ELF", 4) != 0)
+    {
+        fprintf(stderr, "Error: Not an ELF file\n");
+        close(fd);
+        return 98;
+    }
 
-	close(fd);
-	return (0);
+    printElfHeader(&header);
+
+    close(fd);
+    return 0;
 }
 
