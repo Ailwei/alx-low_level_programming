@@ -7,7 +7,7 @@
 #include <string.h>
 
 /**
- * create_file - Creates a file and writes text content to it
+ * create_file - Creates the file and writes text content to it
  * @filename: Name of the file to create
  * @text_content: NULL terminated string to write to the file
  *
