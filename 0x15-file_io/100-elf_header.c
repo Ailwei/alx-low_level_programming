@@ -5,20 +5,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <errno.h>
-
-/* Function prototypes*/
-
-void exitWithError(const char *message);
-void checkElfFile(const char *filename);
-void printElfHeaderInfo(Elf64_Ehdr *header);
-void printMagicNumbers(unsigned char *e_ident);
-void printElfClass(unsigned char elf_class);
-void printElfData(unsigned char elf_data);
-void printElfVersion(unsigned char elf_version);
-void printElfOSABI(unsigned char osabi);
-void printElfABIVersion(unsigned char abi_version);
-void printElfType(unsigned int elf_type);
-void printElfEntryPoint(Elf64_Addr entry_point);
+#include "main.h"
 
 int main(int argc, char *argv[])
 {
