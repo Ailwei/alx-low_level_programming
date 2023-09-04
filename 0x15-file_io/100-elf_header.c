@@ -25,7 +25,7 @@ void display_elf_header_info(const Elf64_Ehdr *header)
 	       header->e_ident[EI_MAG1], header->e_ident[EI_MAG2],
 	       header->e_ident[EI_MAG3]);
 	/* Display other fields of the ELF header as required */
-	/* You can refer to the 'struct elf' man page for their respective offsets and sizes */
+	/* You can refer to 'struct elf' man page for the respective offsets & size */
 }
 
 /**
