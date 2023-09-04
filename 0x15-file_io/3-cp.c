@@ -8,56 +8,58 @@
 
 #define BUFFER_SIZE 1024
 
-int main(int argc, char *argv[]) {
-    const char *file_from;
-    const char *file_to;
-    char buffer[BUFFER_SIZE];
-    ssize_t bytes_read;
-    int fd_source;
-    int fd_dest;
+int main(int argc, char *argv[])
+{
+	const char *file_from;
+	const char *file_to;
+	char buffer[BUFFER_SIZE];
+	ssize_t bytes_read;
+	int fd_source;
+	int fd_dest;
 
-    if (argc != 3) {
-        dprintf(STDERR_FILENO, "Usage: %s file_from file_to\n", argv[0]);
-        return 97;
-    }
+	if (argc != 3)
+	{
+		dprintf(STDERR_FILENO, "Usage: %s file_from file_to\n", argv[0]);
+		return (97);
+	}
+	file_from = argv[1];
+	file_to = argv[2];
+	fd_source = open(file_from, O_RDONLY);
 
-    file_from = argv[1];
-    file_to = argv[2];
-
-    fd_source = open(file_from, O_RDONLY);
-    if (fd_source == -1) {
-        dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
-        return 98;
-    }
-
-    fd_dest = open(file_to, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-    if (fd_dest == -1) {
-        dprintf(STDERR_FILENO, "Error: Can't write to file %s\n", file_to);
-        close(fd_source);
-        return 99;
-    }
-
-    while ((bytes_read = read(fd_source, buffer, BUFFER_SIZE)) > 0) {
-        if (write(fd_dest, buffer, bytes_read) != bytes_read) {
-            dprintf(STDERR_FILENO, "Error: Can't write to file %s\n", file_to);
-            close(fd_source);
-            close(fd_dest);
-            return 99;
-        }
-    }
-
-    if (bytes_read == -1) {
-        dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
-        close(fd_source);
-        close(fd_dest);
-        return 98;
-    }
-
-    if (close(fd_source) == -1 || close(fd_dest) == -1) {
-        dprintf(STDERR_FILENO, "Error: Can't close fd\n");
-        return 100;
-    }
-
-    return 0;
+	if (fd_source == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
+		return (98);
+	}
+	fd_dest = open(file_to, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	if (fd_dest == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't write to file %s\n", file_to);
+		close(fd_source);
+		return (99);
+	}
+	while ((bytes_read = read(fd_source, buffer, BUFFER_SIZE)) > 0)
+	{
+		if (write(fd_dest, buffer, bytes_read) != bytes_read)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't write to file %s\n", file_to);
+			close(fd_source);
+			close(fd_dest);
+			return (99);
+		}
+	}
+	if (bytes_read == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
+		close(fd_source);
+		close(fd_dest);
+		return (98);
+	}
+	if (close(fd_source) == -1 || close(fd_dest) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd\n");
+		return (100);
+	}
+	return (0);
 }
 
