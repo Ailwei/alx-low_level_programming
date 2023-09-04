@@ -153,5 +153,4 @@ int main(int argc, char **argv)
 		error_exit(100, "Error: Can't close fd TO_FD_VALUE");
 	return (0);
 }
-}
 
