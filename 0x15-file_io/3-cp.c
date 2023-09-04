@@ -11,8 +11,8 @@
  */
 void error_exit(int code, const char *message)
 {
-    dprintf(STDERR_FILENO, "%s\n", message);
-    exit(code);
+	dprintf(STDERR_FILENO, "%s\n", message);
+	exit(code);
 }
 
 /**
@@ -25,41 +25,35 @@ void error_exit(int code, const char *message)
  */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-    int fd;
-    ssize_t n_read, n_written;
-    char *buf;
+	int fd;
+	ssize_t n_read, n_written;
+	char *buf;
 
-    if (filename == NULL)
-        return (0);
+	if (filename == NULL)
+		return (0);
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+		return (0);
+	buf = malloc(sizeof(char) * letters);
+	if (buf == NULL)
+	{
+		close(fd);
+		return (0);
+	}
+	n_read = read(fd, buf, letters);
+	if (n_read == -1)
+	{
+		free(buf);
+		close(fd);
+		return (0);
+	}
+	n_written = write(STDOUT_FILENO, buf, n_read);
+	free(buf);
+	close(fd);
 
-    fd = open(filename, O_RDONLY);
-    if (fd == -1)
-        return (0);
-
-    buf = malloc(sizeof(char) * letters);
-    if (buf == NULL)
-    {
-        close(fd);
-        return (0);
-    }
-
-    n_read = read(fd, buf, letters);
-    if (n_read == -1)
-    {
-        free(buf);
-        close(fd);
-        return (0);
-    }
-
-    n_written = write(STDOUT_FILENO, buf, n_read);
-
-    free(buf);
-    close(fd);
-
-    if (n_written < n_read)
-        return (0);
-
-    return (n_written);
+	if (n_written < n_read)
+		return (0);
+	return (n_written);
 }
 
 /**
@@ -71,30 +65,26 @@ ssize_t read_textfile(const char *filename, size_t letters)
  */
 int create_file(const char *filename, char *text_content)
 {
-    int fd, len = 0, n_written;
+	int fd, len = 0, n_written;
 
-    if (filename == NULL)
-        return (-1);
-
-    fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-    if (fd == -1)
-        return (-1);
-
-    if (text_content != NULL)
-    {
-        while (text_content[len])
-            len++;
-
-        n_written = write(fd, text_content, len);
-        if (n_written == -1)
-        {
-            close(fd);
-            return (-1);
-        }
-    }
-
-    close(fd);
-    return (1);
+	if (filename == NULL)
+		return (-1);
+	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+	if (fd == -1)
+		return (-1);
+	if (text_content != NULL)
+	{
+		while (text_content[len])
+			len++;
+		n_written = write(fd, text_content, len);
+		if (n_written == -1)
+		{
+			close(fd);
+			return (-1);
+		}
+	}
+	close(fd);
+	return (1);
 }
 
 /**
@@ -106,30 +96,26 @@ int create_file(const char *filename, char *text_content)
  */
 int append_text_to_file(const char *filename, char *text_content)
 {
-    int fd, len = 0, n_written;
+	int fd, len = 0, n_written;
 
-    if (filename == NULL)
-        return (-1);
-
-    fd = open(filename, O_WRONLY | O_APPEND);
-    if (fd == -1)
-        return (-1);
-
-    if (text_content != NULL)
-    {
-        while (text_content[len])
-            len++;
-
-        n_written = write(fd, text_content, len);
-        if (n_written == -1)
-        {
-            close(fd);
-            return (-1);
-        }
-    }
-
-    close(fd);
-    return (1);
+	if (filename == NULL)
+		return (-1);
+	fd = open(filename, O_WRONLY | O_APPEND);
+	if (fd == -1)
+		return (-1);
+	if (text_content != NULL)
+	{
+		while (text_content[len])
+			len++;
+		n_written = write(fd, text_content, len);
+		if (n_written == -1)
+		{
+			close(fd);
+			return (-1);
+		}
+	}
+	close(fd);
+	return (1);
 }
 
 /**
@@ -141,36 +127,31 @@ int append_text_to_file(const char *filename, char *text_content)
  */
 int main(int argc, char **argv)
 {
-    int from_fd, to_fd;
-    ssize_t n_read, n_written;
-    char buffer[1024];
+	int from_fd, to_fd;
+	ssize_t n_read, n_written;
+	char buffer[1024];
 
-    if (argc != 3)
-        error_exit(97, "Usage: cp file_from file_to");
-
-    from_fd = open(argv[1], O_RDONLY);
-    if (from_fd == -1)
-        error_exit(98, "Error: Can't read from file NAME_OF_THE_FILE");
-
-    to_fd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
-    if (to_fd == -1)
-        error_exit(99, "Error: Can't write to NAME_OF_THE_FILE");
-
-    while ((n_read = read(from_fd, buffer, sizeof(buffer))) > 0)
-    {
-        n_written = write(to_fd, buffer, n_read);
-        if (n_written == -1)
-            error_exit(99, "Error: Can't write to NAME_OF_THE_FILE");
-    }
-
-    if (n_read == -1)
-        error_exit(98, "Error: Can't read from file NAME_OF_THE_FILE");
-
-    if (close(from_fd) == -1)
-        error_exit(100, "Error: Can't close fd FROM_FD_VALUE");
-    if (close(to_fd) == -1)
-        error_exit(100, "Error: Can't close fd TO_FD_VALUE");
-
-    return (0);
+	if (argc != 3)
+		error_exit(97, "Usage: cp file_from file_to");
+	from_fd = open(argv[1], O_RDONLY);
+	if (from_fd == -1)
+		error_exit(98, "Error: Can't read from file NAME_OF_THE_FILE");
+	to_fd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	if (to_fd == -1)
+		error_exit(99, "Error: Can't write to NAME_OF_THE_FILE");
+	while ((n_read = read(from_fd, buffer, sizeof(buffer))) > 0)
+	{
+		n_written = write(to_fd, buffer, n_read);
+		if (n_written == -1)
+			error_exit(99, "Error: Can't write to NAME_OF_THE_FILE");
+	}
+	if (n_read == -1)
+		error_exit(98, "Error: Can't read from file NAME_OF_THE_FILE");
+	if (close(from_fd) == -1)
+		error_exit(100, "Error: Can't close fd FROM_FD_VALUE");
+	if (close(to_fd) == -1)
+		error_exit(100, "Error: Can't close fd TO_FD_VALUE");
+	return (0);
+}
 }
 
