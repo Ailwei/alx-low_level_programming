@@ -6,7 +6,8 @@
 #include <string.h>
 #include <errno.h>
 
-// Function prototypes
+/* Function prototypes*/
+
 void exitWithError(const char *message);
 void checkElfFile(const char *filename);
 void printElfHeaderInfo(Elf64_Ehdr *header);
@@ -21,23 +22,27 @@ void printElfEntryPoint(Elf64_Addr entry_point);
 
 int main(int argc, char *argv[])
 {
+	int fd;
+	Elf64_Ehdr header;
+	const char *filename;
+
     if (argc != 2)
     {
         fprintf(stderr, "Usage: %s elf_filename\n", argv[0]);
         return EXIT_FAILURE;
     }
 
-    const char *filename = argv[1];
+    filename = argv[1];
     checkElfFile(filename);
 
-    int fd = open(filename, O_RDONLY);
+    fd = open(filename, O_RDONLY);
     if (fd == -1)
     {
         perror("Error opening file");
         return EXIT_FAILURE;
     }
 
-    Elf64_Ehdr header;
+    
     if (read(fd, &header, sizeof(header)) != sizeof(header))
     {
         perror("Error reading ELF header");
@@ -59,6 +64,7 @@ void exitWithError(const char *message)
 
 void checkElfFile(const char *filename)
 {
+	unsigned char e_ident[EI_NIDENT];
     int fd = open(filename, O_RDONLY);
     if (fd == -1)
     {
@@ -66,7 +72,7 @@ void checkElfFile(const char *filename)
         exit(EXIT_FAILURE);
     }
 
-    unsigned char e_ident[EI_NIDENT];
+   
     if (read(fd, e_ident, EI_NIDENT) != EI_NIDENT)
     {
         perror("Error reading ELF identification bytes");
@@ -97,8 +103,9 @@ void printElfHeaderInfo(Elf64_Ehdr *header)
 
 void printMagicNumbers(unsigned char *e_ident)
 {
+	int i;
     printf(" Magic:");
-    for (int i = 0; i < EI_NIDENT; i++)
+    for (i = 0; i < EI_NIDENT; i++)
     {
         printf(" %02x", e_ident[i]);
     }
