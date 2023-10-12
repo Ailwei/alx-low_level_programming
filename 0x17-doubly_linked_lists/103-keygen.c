@@ -94,7 +94,6 @@ int main(int argc, char **argv)
     };
     (void) argc;
 
-    // Calculate the length of the username
     for (usernameLength = 0; argv[1][usernameLength]; usernameLength++)
         ;
 
@@ -130,10 +129,10 @@ int main(int argc, char **argv)
     key[5] = ((char *)alphabet)[generateRandomChar(argv[1])];
     key[6] = '\0';
 
-    // Print the generated key
+    /* Print the generated key*/
     for (ch = 0; key[ch]; ch++)
         printf("%c", key[ch]);
 
-    return 0;
+    return (0);
 }
 
