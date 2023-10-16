@@ -2,25 +2,22 @@
 #include <stddef.h>
 
 /**
- * _strchr - Locates the first occurrence of character 'c' in string 's'.
- * @s: The string to search in.
- * @c: The character to locate.
+ * custom_strchr - Locates the first occurrence of character 'target' in string 'str'.
+ * @str: The string to search in.
+ * @target: The character to locate.
  *
- * Return: A pointer to the first occurrence of 'c' in 's', or NULL if 'c' is not found.
+ * Return: A pointer to the first occurrence of 'target' in 'str', or NULL if 'target' is not found.
  */
-char *_strchr(char *s, char c)
+char *custom_strchr(char *str, char target)
 {
-	while (*s != '\0')
+	if (str == NULL)
+		return (NULL);
+
+	while (*str != target)
 	{
-		if (*s == c)
-		{
-			return (s);
-		}
-		s++;
+		if (*str == '\0')
+			return (NULL);
+		str++;
 	}
-	if (c == '\0')
-	{
-		return (s);
-	}
-	return (NULL);
+	return (str);
 }
