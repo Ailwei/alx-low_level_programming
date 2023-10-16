@@ -1,4 +1,5 @@
-#include "main.c"
+#include "main.h"
+#include <stddef.h>
 
 /**
  * _strchr - Locates the first occurrence of character 'c' in string 's'.

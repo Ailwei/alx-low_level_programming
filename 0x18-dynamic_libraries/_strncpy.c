@@ -1,4 +1,4 @@
-#include "main.c"
+#include "main.h"
 
 /**
  * _strncpy - Copies at most 'n' bytes of a string from src to dest.
