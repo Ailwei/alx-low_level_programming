@@ -1,0 +1,28 @@
+# Makefile for the 'school' executable
+
+# Compiler
+CC = gcc
+
+# Source files
+SRC = main.c school.c  # Add more .c files if needed
+
+# Compiler flags
+CFLAGS = -Wall -Wextra -pedantic -std=c11
+
+# Output executable
+EXECUTABLE = school
+
+# Default rule to build the executable
+all: $(EXECUTABLE)
+
+# Rule to build the executable
+$(EXECUTABLE): $(SRC)
+	$(CC) $(CFLAGS) $(SRC) -o $(EXECUTABLE)
+
+# Clean rule to remove the executable
+clean:
+	rm -f $(EXECUTABLE)
+
+# .PHONY ensures that 'clean' is run even if a file named 'clean' exists
+.PHONY: clean
+
