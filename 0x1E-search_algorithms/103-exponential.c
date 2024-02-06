@@ -1,12 +1,14 @@
 #include "search_algos.h"
 
 /**
- * exponential_search - Searches for a value in a sorted array using Exponential search algorithm
+ * exponential_search - Searches for a value
+ * in a sorted array using Exponential search algorithm
  * @array: Pointer to the first element of the array to search in
  * @size: Number of elements in array
  * @value: Value to search for in the array
  *
- * Return: The first index where value is located, or -1 if not found or array is NULL
+ * Return: The first index where value is located,
+ * or -1 if not found or array is NULL
  */
 int exponential_search(int *array, size_t size, int value)
 {
@@ -28,7 +30,8 @@ int exponential_search(int *array, size_t size, int value)
 }
 
 /**
- * binary_search - Searches for a value in a sorted array using Binary search algorithm
+ * binary_searching - Searches for a value in
+ * a sorted array using Binary search algorithm
  * @array: Pointer to the first element of the array to search in
  * @low: Lowest index of the array to search in
  * @high: Highest index of the array to search in
