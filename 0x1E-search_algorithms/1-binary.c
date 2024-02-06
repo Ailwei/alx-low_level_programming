@@ -9,20 +9,13 @@
  * or  -1 if not present or array is NULL
 */
 
-/**
- * binary_search - Searches for a value in a sorted array using Binary Search
- * @array: Pointer to the first element of the array to search in
- * @size: Number of elements in the array
- * @value: The value to search for
- *
- * Return: Index where value is located, or -1 if not present or array is NULL
- */
 int binary_search(int *array, size_t size, int value)
 {
 	size_t left = 0, i, right = size - 1, mid;
+
 	if (array == NULL || size == 0)
 		return (-1);
-	
+
 	while (left <= right)
 	{
 		mid = left + (right - left) / 2;
